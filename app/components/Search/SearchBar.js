@@ -4,6 +4,7 @@ import { FaArrowLeft } from "react-icons/fa6";
 import styles from "./SearchBar.module.css";
 import { useRef, useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
+import { IoClose } from "react-icons/io5";
 
 const SearchBar = ({ setSearch: clickHandler, slug }) => {
   const inputRef = useRef(null);
@@ -16,8 +17,22 @@ const SearchBar = ({ setSearch: clickHandler, slug }) => {
     inputRef.current.focus();
   }, []);
 
+  let search_history = [];
+
+  useEffect(() => {
+    if (localStorage.getItem("search_history") !== null) {
+      search_history = JSON.parse(localStorage.getItem("search_history"));
+    }
+  }, []);
+
   const submitter = (e) => {
     e.preventDefault();
+    if (!search) return;
+    clickHandler();
+
+    search_history.push(search);
+
+    localStorage.setItem("search_history", JSON.stringify(search_history));
     if (search) router.push(`/search/${search}`);
   };
 
@@ -33,6 +48,9 @@ const SearchBar = ({ setSearch: clickHandler, slug }) => {
         value={search}
         onChange={(e) => setSearch(e.target.value)}
       />
+      {search && (
+        <IoClose onClick={() => setSearch("")} size={35} fill="gray" />
+      )}
       <button type="submit" onClick={submitter}>
         <img src="/search.png" alt="search" />
       </button>

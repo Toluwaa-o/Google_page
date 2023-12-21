@@ -3,6 +3,7 @@
 import { useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
 import styles from "../../page.module.css";
+import { IoClose } from "react-icons/io5";
 
 const LinkSearchBar = ({ search: propSearch, setSearch: propsetSearch }) => {
   const [search, setSearch] = useState("");
@@ -13,7 +14,9 @@ const LinkSearchBar = ({ search: propSearch, setSearch: propsetSearch }) => {
 
   const submitter = (e) => {
     e.preventDefault();
-    if (search) router.push(`/search/${search}`);
+    if(!search) return
+
+    if (search !== '') router.push(`/search/${search}`);
   };
 
   return (
@@ -28,6 +31,7 @@ const LinkSearchBar = ({ search: propSearch, setSearch: propsetSearch }) => {
           value={search}
           onChange={(e) => setSearch(e.target.value)}
         />
+        {search && <IoClose className={styles.clear_search} onClick={() => setSearch('')} size={35} fill="gray" />}
         <button type="submit" onClick={submitter}>
           <img src="/search.png" alt="search" />
         </button>

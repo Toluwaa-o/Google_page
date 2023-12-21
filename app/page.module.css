@@ -147,7 +147,15 @@
 }
 /* Spinner CSS */
 
+.clear_search {
+  display: none;
+}
+
 @media screen and (min-width: 768px) {
+  .clear_search {
+    display: block;
+  }
+
   .logo {
     width: 13%;
   }

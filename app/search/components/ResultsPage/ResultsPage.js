@@ -8,6 +8,7 @@ import Pagination from "../Pagination/Pagination";
 import SearchPage from "../Page/SearchPage";
 import { useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
+import { IoClose } from "react-icons/io5";
 
 const ResultsPage = ({ data, num, slug }) => {
   const [search, setSearch] = useState(false);
@@ -40,6 +41,7 @@ const ResultsPage = ({ data, num, slug }) => {
             value={searchWord}
             onChange={(e) => setSearchWord(e.target.value)}
           />
+          {searchWord && <IoClose className={styles.clear_search} onClick={() => setSearchWord('')} size={35} fill="gray" />}
           <button type="submit" onClick={submitter}>
             <img src="/search.png" alt="search" />
           </button>

@@ -8,6 +8,33 @@
     background: white;
 }
 
+.previous_search {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    padding: 1rem 0.5rem;
+}
+
+.previous_search > span {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    font-size: 1.1rem;
+}
+
+.previous_search > span > span {
+    background: rgba(128, 128, 128, 0.464);
+    width: 32px;
+    height: 32px;
+    display: grid;
+    place-content: center;
+    border-radius: 100%;
+}
+
+.previous_search > span > a {
+    margin-right: auto;
+}
+
 @media screen and (min-width: 768px) {
     .searchpage {
         display: none;
