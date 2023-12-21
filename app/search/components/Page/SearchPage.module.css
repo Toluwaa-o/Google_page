@@ -1,0 +1,15 @@
+.searchpage {
+    padding-inline: 0.5rem;
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 100vh;
+    width: 100vw;
+    background: white;
+}
+
+@media screen and (min-width: 768px) {
+    .searchpage {
+        display: none;
+    }
+}
