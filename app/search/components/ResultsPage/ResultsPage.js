@@ -53,6 +53,12 @@ const ResultsPage = ({ data, num, slug }) => {
           search={searchWord}
         />
       </span>
+      <span className={styles.category}>
+        <p>News</p>
+        <p>Images</p>
+        <p>Videos</p>
+        <p>Shopping</p>
+      </span>
       <main className={styles.main}>
         <SearchResults data={data} />
         <Pagination slug={slug} page={num} />
