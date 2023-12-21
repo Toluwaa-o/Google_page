@@ -25,6 +25,15 @@ const SearchBar = ({ setSearch: clickHandler, slug }) => {
     }
   }, []);
 
+  useEffect(() => {
+    if (slug) {
+      search_history.push(slug);
+      if (JSON.parse(localStorage.getItem("search_history")).indexOf(slug) < 0) {
+        localStorage.setItem("search_history", JSON.stringify(search_history));
+      }
+    }
+  }, []);
+
   const submitter = (e) => {
     e.preventDefault();
     if (!search) return;

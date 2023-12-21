@@ -8,16 +8,37 @@ import { IoClose } from "react-icons/io5";
 const LinkSearchBar = ({ search: propSearch, setSearch: propsetSearch }) => {
   const [search, setSearch] = useState("");
   const router = useRouter();
+  let search_history = [];
+
   useEffect(() => {
     setSearch(propSearch);
+  }, []);
+
+  useEffect(() => {
+    if (localStorage.getItem("search_history") !== null) {
+      search_history = JSON.parse(localStorage.getItem("search_history"));
+    }
   }, []);
 
   const submitter = (e) => {
     e.preventDefault();
     if(!search) return
 
+    search_history.push(search);
+
+    localStorage.setItem("search_history", JSON.stringify(search_history));
+
     if (search !== '') router.push(`/search/${search}`);
   };
+
+  useEffect(() => {
+    if (search) {
+      search_history.push(search);
+      if (JSON.parse(localStorage.getItem("search_history")).indexOf(search) < 0) {
+        localStorage.setItem("search_history", JSON.stringify(search_history));
+      }
+    }
+  }, []);
 
   return (
     <div onClick={propsetSearch}>
