@@ -3,6 +3,7 @@
     margin: auto;
     gap: 1rem;
     align-items: center;
+    padding: 1rem;
 }
 
 .valid_link {
@@ -18,7 +19,6 @@
         margin-left: 10%;
         width: 55%;
         justify-content: center;
-        padding: 1rem;
         font-size: 1.2rem;
     }
 }
