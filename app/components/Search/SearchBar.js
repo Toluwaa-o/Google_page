@@ -9,6 +9,7 @@ import { IoClose } from "react-icons/io5";
 const SearchBar = ({ setSearch: clickHandler, slug }) => {
   const inputRef = useRef(null);
   const router = useRouter();
+  const [searchHistory, setSearchHistory] = useState([]);
 
   const [search, setSearch] = useState("");
 
@@ -17,31 +18,27 @@ const SearchBar = ({ setSearch: clickHandler, slug }) => {
     inputRef.current.focus();
   }, []);
 
-  let search_history = [];
-
   useEffect(() => {
     if (localStorage.getItem("search_history") !== null) {
-      search_history = JSON.parse(localStorage.getItem("search_history"));
-    }
-  }, []);
-
-  useEffect(() => {
-    if (slug) {
-      search_history.push(slug);
-      if (JSON.parse(localStorage.getItem("search_history")).indexOf(slug) < 0) {
-        localStorage.setItem("search_history", JSON.stringify(search_history));
-      }
+      const newArr = JSON.parse(localStorage.getItem("search_history"));
+      setSearchHistory(newArr);
     }
   }, []);
 
   const submitter = (e) => {
     e.preventDefault();
+
     if (!search) return;
+
+    const updatedSearchHistory = [...searchHistory, search];
+
+    console.log(updatedSearchHistory, search)
+
+    setSearchHistory(updatedSearchHistory);
+
+    localStorage.setItem("search_history", JSON.stringify(updatedSearchHistory));
+
     clickHandler();
-
-    search_history.push(search);
-
-    localStorage.setItem("search_history", JSON.stringify(search_history));
     if (search) router.push(`/search/${search}`);
   };
 

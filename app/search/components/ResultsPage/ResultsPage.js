@@ -12,7 +12,7 @@ import { IoClose } from "react-icons/io5";
 
 const ResultsPage = ({ data, num, slug }) => {
   const [search, setSearch] = useState(false);
-  const [searchWord, setSearchWord] = useState(false);
+  const [searchWord, setSearchWord] = useState('');
   const router = useRouter();
 
   useEffect(() => {
@@ -50,7 +50,7 @@ const ResultsPage = ({ data, num, slug }) => {
       <span className={styles.hide_on_desktop}>
         <LinkSearchBar
           setSearch={() => setSearch(!search)}
-          search={searchWord}
+          search={slug.replace("%20", " ")}
         />
       </span>
       <span className={styles.category}>

@@ -8,7 +8,7 @@ import { IoClose } from "react-icons/io5";
 const LinkSearchBar = ({ search: propSearch, setSearch: propsetSearch }) => {
   const [search, setSearch] = useState("");
   const router = useRouter();
-  let search_history = [];
+  const [searchHistory, setSearchHistory] = useState([]);
 
   useEffect(() => {
     setSearch(propSearch);
@@ -16,29 +16,43 @@ const LinkSearchBar = ({ search: propSearch, setSearch: propsetSearch }) => {
 
   useEffect(() => {
     if (localStorage.getItem("search_history") !== null) {
-      search_history = JSON.parse(localStorage.getItem("search_history"));
+      const newArr = JSON.parse(localStorage.getItem("search_history"));
+      console.log(newArr);
+      setSearchHistory(newArr);
     }
   }, []);
 
   const submitter = (e) => {
     e.preventDefault();
-    if(!search) return
+    if (!search) return;
 
-    search_history.push(search);
+    const updatedSearchHistory = [...searchHistory, search];
 
-    localStorage.setItem("search_history", JSON.stringify(search_history));
+    setSearchHistory(updatedSearchHistory);
 
-    if (search !== '') router.push(`/search/${search}`);
+    localStorage.setItem("search_history", JSON.stringify(searchHistory));
+
+    if (search !== "") router.push(`/search/${search}`);
   };
 
   useEffect(() => {
-    if (search) {
-      search_history.push(search);
-      if (JSON.parse(localStorage.getItem("search_history")).indexOf(search) < 0) {
-        localStorage.setItem("search_history", JSON.stringify(search_history));
+    if (propSearch) {
+      if (
+        localStorage.getItem("search_history") === null ||
+        JSON.parse(localStorage.getItem("search_history")).indexOf(propSearch) <
+          0
+      ) {
+        const newArr = JSON.parse(localStorage.getItem("search_history"));
+        const updatedSearchHistory = [...newArr, propSearch];
+
+        setSearchHistory(updatedSearchHistory);
+        localStorage.setItem(
+          "search_history",
+          JSON.stringify(updatedSearchHistory)
+        );
       }
     }
-  }, []);
+  }, [propSearch]);
 
   return (
     <div onClick={propsetSearch}>
@@ -52,7 +66,14 @@ const LinkSearchBar = ({ search: propSearch, setSearch: propsetSearch }) => {
           value={search}
           onChange={(e) => setSearch(e.target.value)}
         />
-        {search && <IoClose className={styles.clear_search} onClick={() => setSearch('')} size={35} fill="gray" />}
+        {search && (
+          <IoClose
+            className={styles.clear_search}
+            onClick={() => setSearch("")}
+            size={35}
+            fill="gray"
+          />
+        )}
         <button type="submit" onClick={submitter}>
           <img src="/search.png" alt="search" />
         </button>

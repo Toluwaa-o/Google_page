@@ -1,3 +1,4 @@
+import { notFound } from "next/navigation";
 import ResultsPage from "../components/ResultsPage/ResultsPage";
 
 const APIKEY = process.env.API_KEY;
@@ -14,6 +15,8 @@ export const fetchData = async ({ slug, num }) => {
   if (!response.ok) {
     throw new Error("Failed to fetch data");
   }
+
+  if(!data.articles.length) notFound()
 
   return data;
 };
