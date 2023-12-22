@@ -14,7 +14,7 @@ export default function Error({ error, reset }) {
   const router = useRouter();
 
   useEffect(() => {
-    if (params.slug) setSearchWord(params.slug.replace("%20", " "));
+    if (params.slug) setSearchWord(params.slug.replace(/%20/g, " "));
   }, []);
 
   const submitter = (e) => {

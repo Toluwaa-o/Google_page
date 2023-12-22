@@ -14,7 +14,7 @@ const SearchBar = ({ setSearch: clickHandler, slug }) => {
   const [search, setSearch] = useState("");
 
   useEffect(() => {
-    if (slug) setSearch(slug.replace("%20", " "));
+    if (slug) setSearch(slug.replace(/%20/g, " "));
     inputRef.current.focus();
   }, []);
 
@@ -32,11 +32,12 @@ const SearchBar = ({ setSearch: clickHandler, slug }) => {
 
     const updatedSearchHistory = [...searchHistory, search];
 
-    console.log(updatedSearchHistory, search)
-
     setSearchHistory(updatedSearchHistory);
 
-    localStorage.setItem("search_history", JSON.stringify(updatedSearchHistory));
+    localStorage.setItem(
+      "search_history",
+      JSON.stringify(updatedSearchHistory)
+    );
 
     clickHandler();
     if (search) router.push(`/search/${search}`);

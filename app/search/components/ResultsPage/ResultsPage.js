@@ -50,7 +50,7 @@ const ResultsPage = ({ data, num, slug }) => {
       <span className={styles.hide_on_desktop}>
         <LinkSearchBar
           setSearch={() => setSearch(!search)}
-          search={slug.replace("%20", " ")}
+          search={slug.replace(/%20/g, " ")}
         />
       </span>
       <span className={styles.category}>

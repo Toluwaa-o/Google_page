@@ -17,7 +17,6 @@ const LinkSearchBar = ({ search: propSearch, setSearch: propsetSearch }) => {
   useEffect(() => {
     if (localStorage.getItem("search_history") !== null) {
       const newArr = JSON.parse(localStorage.getItem("search_history"));
-      console.log(newArr);
       setSearchHistory(newArr);
     }
   }, []);
